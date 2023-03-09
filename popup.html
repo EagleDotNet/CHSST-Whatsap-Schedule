@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Extension Popup</title>
+    <style>
+        body {
+            min-width: 200px;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My Extension Popup</h1>
+    <p>This is the popup for my extension.</p>
+    <form id="message-form">
+        <label for="message-text">Message:</label>
+        <input type="text" id="message-text" name="message-text"><br>
+
+        <label for="scheduled-time">Scheduled Time:</label>
+        <input type="datetime-local" id="scheduled-time" name="scheduled-time"><br>
+
+        <input type="submit" value="Schedule Message">
+    </form>
+    <script>
+        document.getElementById('message-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const message = document.getElementById('message-text').value;
+            const scheduledTime = new Date(document.getElementById('scheduled-time').value).getTime();
+
+            chrome.storage.local.get(['scheduledMessages'], function (result) {
+                const scheduledMessages = result.scheduledMessages || [];
+
+                scheduledMessages.push({ message, scheduledTime });
+
+                chrome.storage.local.set({ scheduledMessages }, function () {
+                    console.log('Scheduled message saved.');
+                });
+
+                const now = Date.now();
+                const delay = scheduledTime - now;
+
+                if (delay > 0) {
+                    setTimeout(function () {
+                        // Add code to send the message here.
+                        console.log(`Sending message: ${message}`);
+                    }, delay);
+                } else {
+                    console.log('Scheduled time has already passed.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
