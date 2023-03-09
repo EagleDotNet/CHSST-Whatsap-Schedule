@@ -52,17 +52,29 @@ function createChatButton(selectedChat) {
   return chatButton;
 }
 
-function addButtonsToChats() {
-  const chatList = document.querySelector("div[role='tablist']");
-  if (chatList) {
-    const chats = chatList.querySelectorAll("div[role='tab']");
-    chats.forEach((chat) => {
-      if (!chat.querySelector(".chat-schedule-button")) {
-        const chatButton = createChatButton(chat);
-        chatButton.classList.add("chat-schedule-button");
-        chat.appendChild(chatButton);
-      }
-    });
+function addButtons() {
+  let chats = document.querySelectorAll("._2wP_Y");
+
+  for (let i = 0; i < chats.length; i++) {
+    let chat = chats[i];
+
+    let btn = document.createElement("button");
+    btn.className = "btn-schedule";
+    btn.innerHTML = "Schedule Message";
+    btn.onclick = function () {
+      let chatName = chat.querySelector("._3ko75").innerText;
+      openScheduler(chatName);
+    };
+
+    let btnContainer = chat.querySelector(".btn-container");
+    if (btnContainer) {
+      btnContainer.appendChild(btn);
+    } else {
+      btnContainer = document.createElement("div");
+      btnContainer.className = "btn-container";
+      btnContainer.appendChild(btn);
+      chat.appendChild(btnContainer);
+    }
   }
 }
 
