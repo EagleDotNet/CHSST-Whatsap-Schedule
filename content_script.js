@@ -19,10 +19,12 @@ window.addEventListener('load', function () {
       // Fill in the message input field and click the send button for each scheduled message that should be sent now
       messagesToSend.forEach(message => {
         const messageInput = document.querySelector('[data-tab="6"] [contenteditable="true"]');
+        const conversations = document.querySelectorAll('div.copyable-area');
         const sendButton = document.querySelector('[data-tab="6"] span[data-icon="send"]');
 
         messageInput.innerText = message.text;
         sendButton.click();
+        const conversationNameElements = conversation.querySelectorAll('._19RFN');
       });
 
       // Remove any scheduled messages that have been sent
@@ -44,7 +46,8 @@ window.addEventListener('hashchange', function () {
   const isConversation = document.querySelector('[data-tab="3"]') !== null;
 
   if (isConversation) {
-    console.log('User is now in a conversation.');
+    const conversationNameElements = conversation.querySelectorAll('._19RFN');
+const conversationName = conversationNameElements.length > 0 ? conversationNameElements[0].innerText : '';
 
     // Check if there are any scheduled messages for this conversation
     chrome.storage.sync.get('scheduledMessages', function (result) {
