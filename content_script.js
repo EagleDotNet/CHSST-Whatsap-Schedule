@@ -47,7 +47,7 @@ window.addEventListener('hashchange', function () {
 
   if (isConversation) {
     const conversationNameElements = conversation.querySelectorAll('._19RFN');
-const conversationName = conversationNameElements.length > 0 ? conversationNameElements[0].innerText : '';
+    const conversationName = conversationNameElements.length > 0 ? conversationNameElements[0].innerText : '';
 
     // Check if there are any scheduled messages for this conversation
     chrome.storage.sync.get('scheduledMessages', function (result) {
