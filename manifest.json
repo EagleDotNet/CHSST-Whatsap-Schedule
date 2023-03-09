@@ -12,12 +12,9 @@
     "tabs",
     "storage"
   ],
-  "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": false
-  },
+"background": {
+  "scripts": ["background_script.js"]
+},
   "browser_action": {
     "default_icon": "icon16.png",
     "default_popup": "popup.html"
